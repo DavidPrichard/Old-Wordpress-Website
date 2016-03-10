@@ -1,0 +1,877 @@
+/*
+ Theme Name:	Trichotomy
+ Author:	David Prichard
+ Author URI:	http://onemanpotluck.com
+ Template:	trichotomy
+ Version:	0.91
+ Text Domain:	trichotomy
+ License:	GNU General Public License v2 or later.
+ License URL:	http://www.gnu.org/licenses/gpl-2.0.html
+
+Description:  This theme was developed from the WordPress Twentyfourteen theme for my personal blog; a WIP for now. Important resources for its development include: blog.typekit.com, html5-rocks.com, css-tricks.com, normalize.css (http://necolas.github.io/normalize.css/), html5boilerplate.com, html5please.com, & caniuse.com.
+
+ Table of Contents:
+
+  1 - Fonts
+
+  2 - Reset
+
+  3 - Basic Style
+   3.1 - Elements
+   3.2 - Pseudo-Selectors and -Elements
+
+  4 - Page Structure
+   4.1 - Header
+   4.2 - Main
+   4.3 - Sidebar
+   4.4 - Footer
+
+  5 - Objects
+   5.1 - Search Bar
+   5.2 - Entries & Comments
+   5.3 - Post & Page Navigation
+   5.4 - Widgets
+   5.9 - Genericons
+
+  6 - Contextual Styles
+   6.1 - Category-Specific (full-width)
+   6.2 - Template-Specific (palettes, fonts)
+
+  8 - Misc.
+   8.2 - Hidden Classes
+   8.3 - Alignment Classes
+
+  9 - Media Queries
+
+  10 - Color Scheme
+
+*/
+
+
+/* 1 - Fonts */
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 300;
+	src: url(http://fonts.gstatic.com/s/lato/v11/kcf5uOXucLcbFOydGU24WALUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: url(http://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	src: url(http://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: italic;
+	font-weight: 300;
+	src: url(http://fonts.gstatic.com/s/lato/v11/2HG_tEPiQ4Z6795cGfdivLO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: italic;
+	font-weight: 400;
+	src: url(http://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: italic;
+	font-weight: 700;
+	src: url(http://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+
+/* Embedded custom variant of the "Genericons" icon font. This font is released under the GNU General Public License Version 2, same as the original Genericons font. Note that the rest of the website and other resources are not released under this same license unless otherwise indicated, as they are independent works. */
+
+@font-face {
+	font-family: 'Genericons';
+	src: url(data:application/font-woff;charset=utf-8;base64,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)
+format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+/***** 2 - Reset *****
+ *
+ * Note: This section overrides inconsistent or undesirable user-agent 
+ * styling & browser defaults. Based on normalize.css; many thanks to
+ * Nicolas Gallagher & Jonathan Neal.
+ */
+
+summary,
+details {
+	display: block;
+}
+
+button[disabled],
+input[disabled] {
+	cursor: default;
+}
+
+textarea {
+	vertical-align: top;
+}
+
+code,
+kbd,
+tt,
+samp,
+pre {
+	font-family: Monaco,monospace,monospace;
+/* Not a typo. Browsers handle monospace strangely. */
+	font-size: 1em;
+}
+
+pre {
+	overflow: auto;
+	white-space: pre-wrap;
+}
+
+hr {
+	height: 1px;
+	margin: 2em 0 0;
+	border: 0;
+}
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+::-webkit-search-cancel-button,
+::-webkit-search-decoration,
+input,
+button {
+	-webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+input:focus,
+textarea:focus {
+	outline: 0;
+	color: inherit;
+}
+
+	/***** 3 - Basic Style *****/
+
+	/* 3.1 - Elements */
+
+/* input and textarea don't inherit font from body */
+body,
+input,
+textarea {
+	font: 400 16px/1.5 Lato, sans-serif;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+address,
+pre,
+table,
+iframe,
+object,
+video {
+	margin-bottom: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+}
+
+h1 {
+	font-size: 42px;
+	font-weight: 300;
+	line-height: 1;
+}
+
+h2 {
+	font-size: 33px;
+	font-weight: 300;
+	line-height: 1;
+}
+
+h3 {
+	font-size: 24px;
+	line-height: 1;
+}
+
+h4 {
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 1.1;
+}
+
+h5 {
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 1.3333;
+}
+
+h6,
+cite {
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+blockquote {
+	font-size: 18px;
+	font-style: italic;
+	line-height: 1.25;
+}
+
+dfn {
+	font-style: italic;
+}
+
+small {
+	font-size: 80%;
+}
+
+sup,
+sub {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	bottom: 1ex;
+}
+
+sub {
+	top: .5ex;
+}
+
+ul,
+ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+th,
+td {
+	border: 1px solid;
+	padding: 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+iframe,
+object,
+video,
+input,
+textarea {
+	max-width: 100%;
+	border: 0;
+	box-sizing: content-box;
+}
+
+	/* 3.2 - Pseudo-Selectors and -Elements */
+
+	/* Links */
+
+a:active,
+a:hover {
+	outline: 0;
+}
+
+	/* User Selection */
+/* technically invalid CSS, but useful and well-supported */
+
+::selection {
+background: #999;
+}
+
+::-moz-selection {
+background: #999;
+}
+
+	/* Placeholder Text */
+
+::-webkit-input-placeholder {
+	color: #aaa;
+}
+
+::-moz-placeholder {
+	color: #aaa;
+	opacity: 1; /* FF lowers the default opacity */
+}
+
+:-ms-input-placeholder {
+	color: #aaa;
+}
+
+
+	/***** 4 - Page Structures *****/
+
+	/* 4.1 Header */
+
+#site-header {
+	width: 100%;
+	min-height: 44px;
+}
+
+#site-title {
+	position: absolute;
+	margin-left: 1em;
+	font-size: 18px;
+	line-height: 44px;
+}
+
+	/* Navigation */
+
+.main-menu {
+	font-size: 11px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.menu-toggle {
+	display: block;
+	visibility: hidden;
+	height: 44px;
+	width: 44px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: center;
+	cursor: pointer;
+}
+
+.menu-item {
+	line-height: 44px;
+	display: inline-block;
+}
+
+.menu-item > a {
+	padding: 0 1em;
+	display: block;
+}
+
+.sub-menu {
+	position: absolute;
+	background: red;
+	display: none;
+}
+
+.menu-item:hover > .sub-menu,
+.menu-item:focus > .sub-menu {
+	display: block;
+}
+
+	/* Header Searchbar */
+
+#header-search {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+	/* 4.2 Main */
+
+	/* 4.3 Sidebar */
+
+#sidebar {
+	padding: 2em 1.5em;
+}
+
+	/* 4.4 Footer */
+
+#site-footer {
+	padding: 6px 0;
+	background: #000;
+	border-top: 1px solid;
+	font-size: 12px;
+	text-align: center;
+}
+
+	/***** 5 - Objects *****/
+
+	/* 5.1 Search Bar */
+
+.search-button {
+	float: left;
+	cursor: pointer;
+	height: 44px;
+	width: 44px;
+	text-align: center;
+	background: red;
+}
+
+.search-field {
+	height: 42px;
+	padding: 0 1em;
+	border: 1px solid;
+	width: 160px;
+}
+
+.search-submit {
+	display: none;
+}
+
+	/* 5.2 Entries & Comments */
+
+	/* Entry-only Classes */
+
+.hentry {
+	min-height: 52px;
+	max-width: 520px;
+	margin: 1em auto;
+	padding: 0 1em;
+}
+
+.cat-links {
+	margin-left: 2px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.entry-title {
+	margin: 0 0 6px -2px;
+}
+
+.entry-content {
+	max-width: 560px;
+	margin: 0 auto;
+}
+
+.tag-links {
+	font-size: 11px;
+	font-weight: 700;
+}
+
+.tag-links > a {
+	padding: 2px 4px;
+	margin-right: 1em;
+	border: 1px solid #000;
+	border-radius: 3px;
+}
+
+	/* Comment-only Classes */
+
+#comments-area {
+	padding: 1.5em;
+	border-left: 5em solid #ccc;
+	border-right: 5em solid #ccc;
+	border-top: 1px solid rgba(0,0,0, 0.02);
+}
+
+.comments-title,
+.comment-reply-title {
+	font-size: 18px;
+	text-transform: uppercase;
+}
+
+.comment-author {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.comment-body {
+	border-top: 1px solid;
+	padding: 24px;
+	max-width: 504px;
+}
+
+.comment-list .children {
+	margin-left: 4vw;
+}
+
+.comment-awaiting-moderation,
+.logged-in-as {
+	font-size: 14px;
+	margin: 0 0 0.5em;
+}
+
+#comment {
+	height: 200px;
+	width: 450px;
+}
+
+#submit {
+}
+
+.reply {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+	/* Entry & Comment Meta Classes */
+
+.entry-content,
+.comment-content {
+	-webkit-hyphens: manual;
+	-moz-hyphens:	 manual;
+	-ms-hyphens:	 manual;
+	hyphens:	 manual;
+	word-wrap: break-word;
+}
+
+.entry-meta,
+.comment-meta {
+	font-size: 12px;
+	line-height: 1.25;
+}
+
+.entry-date,
+.post-edit-link,
+.comment-meta > a {
+	margin-right: 1em;
+}
+
+	/* 5.3 Post & Page Navigation- */
+
+.nav-links {
+	border-top: 1px solid;
+}
+
+.post-navigation {
+	margin: 2em auto;
+	max-width: 400px;
+}
+
+.nav-links > a {
+	display: block;
+	font-size: 14px;
+	font-weight: 700;
+	border-bottom: 1px solid;
+	padding: 0 1em;
+}
+
+.meta-nav {
+	display: block;
+	font-size: 12px;
+	font-weight: 900;
+	line-height: 2;
+	text-transform: uppercase;
+}
+
+.paging-navigation {
+	margin: 0.5em 0;
+	border-top: 5px solid;
+	text-align: center;
+}
+
+.pagination {
+	margin: -5px 0 2em;
+}
+
+.page-numbers {
+	display: inline-block;
+	padding: 0 0.5em;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.page-numbers.current {
+	border-top: 5px solid #f00;
+	color: #f00;
+}
+
+	/* 5.4 Widgets */
+
+.widget {
+	font-size: 14px;
+	line-height: 1.3;
+	word-wrap: break-word;
+	padding-bottom: 3em;
+}
+
+.widget-title {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.4;
+	margin: 1em 0;
+	text-transform: uppercase;
+}
+
+	/* List Style Widgets*/
+
+.widget li {
+	border-top: 1px solid;
+	padding: 8px 0;
+}
+
+.widget li:first-child {
+	border-top: 0;
+}
+
+	/* 5.9 Genericons */
+
+.search-button::before,
+.menu-toggle::before,
+.entry-date::before,
+.post-edit-link::before,
+.comment-edit-link::before,
+.comment-reply-link::before,
+.comment-reply-login::before,
+#cancel-comment-reply-link::before {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font: normal 16px/1 Genericons;
+	vertical-align: text-bottom;
+}
+
+.search-button::before {
+	content: "\f400";
+	display: block;
+	margin-top: 10px;
+	font-size: 24px;
+}
+
+.menu-toggle::before {
+	content: "\f419";
+	position: relative;
+	top: 11px;
+	font-size: 20px;
+}
+
+.entry-date::before {
+	content: "\f303";
+	position: relative;
+	top: 1px;
+}
+
+.post-edit-link::before,
+.comment-edit-link::before {
+	content: "\f411";
+}
+
+.comment-reply-link::before,
+.comment-reply-login::before {
+	content: "\f412";
+	margin-right: 2px;
+}
+
+#cancel-comment-reply-link::before {
+	content: "\f405";
+	position: relative;
+	top: 1px;
+	vertical-align: baseline;
+	border: 1px solid;
+	border-radius: 20px;
+	padding: 0.5px 0.5px 0 0;
+}
+
+	/***** 6 - Contextual Styles *****/
+
+	/* 6.1 Category-Specific */
+
+.current_page_item > a,
+.current_page_ancestor > a {
+	font-weight:700;
+}
+
+	/* 6.2 Template-Specific */
+
+	/* Archive */
+
+.archive-title {
+	margin: 0;
+	padding: 1em;
+	border-bottom: 1px solid;
+}
+
+.archive-content {
+	margin: 2em;
+}
+
+	/***** 8 MISCELLANEOUS CLASSES *****/
+
+	/* 8.1 Accessibility Classes */
+
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute;
+}
+
+	/* 8.2 Alignment Classes */
+
+.alignleft {
+	float: left;
+}
+
+.alignright {
+	float: right;
+}
+
+.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+	/***** 9 Media Queries *****/
+
+@media screen and (max-width: 400px) {
+
+	.menu-item {
+		display: block;
+		border-bottom: 1px solid;
+	}
+}
+
+@media screen and (max-width: 550px) {
+
+	.list-view .cat-links,
+	.list-view .entry-content,
+	.list-view footer.entry-meta {
+		display: none;
+	}
+
+	.list-view .entry-title {
+		font-size: 15px;
+		font-weight: 900;
+	}
+}
+
+@media screen and (max-width: 900px) {
+
+	body,
+	input,
+	textarea {
+		font-size: 15px;
+	}
+
+	/* Animated Header */
+
+	#site-title {
+		position: static;
+	}
+
+	.main-menu {
+		display: none;
+		border-top: 1px solid;
+	}
+
+	.menu-toggle {
+		visibility: visible;
+	}
+
+	.menu-toggle:hover + .main-menu,
+	.main-menu:hover {
+		display: block;
+	}
+
+	#header-search {
+		margin-right: 44px;
+	}
+
+	#header-search .search-field {
+		width: 0;
+		padding: 0;
+	}
+
+	#header-search:focus .search-field,
+	#header-search:hover .search-field {
+		width: 10em;
+		padding: 0 1em;
+	}
+}
+
+	/***** 10 - Color Scheme *****/
+/* Have to be at the bottom for border colors to override the defaults correctly*/
+
+#sidebar,
+#site-header {
+	background: #000;
+	color: #fff;
+}
+
+blockquote,
+.entry-date,
+.post-edit-link,
+.comment-meta > a,
+.meta-nav,
+.comment-notes,
+.comment-awaiting-moderation,
+.logged-in-as {
+	color: rgba(0,0,0, 0.6);
+}
+
+#site-footer,
+.search-field {
+	color: #aaa;
+}
+
+hr,
+.archive-title,
+#comments-area,
+.search-field {
+	background: rgba(0,0,0, 0.1);
+}
+
+.more-link {
+	color: #24890d;
+}
+
+.menu-item:first-child:hover > a,
+.menu-item:first-child:focus > a {
+	color: #f40;
+}
+.menu-item:nth-child(2):hover > a,
+.menu-item:nth-child(2):focus > a {
+	color: #4af;
+}
+.menu-item:nth-child(3):hover > a,
+.menu-item:nth-child(3):focus > a {
+	color: #0b3;
+}
+.menu-item:last-child:hover > a,
+.menu-item:last-child:focus > a {
+	color: #ddd;
+}
+
+.required {
+	color: #c0392b;
+}
+
+	/* Border Colors */
+
+th,
+td,
+.comment-body,
+.nav-links,
+.nav-links > a {
+	border-color: rgba(127,127,127, 0.2);
+}
+#site-footer,
+.main-menu,
+.menu-item,
+.widget li {
+	border-color: rgba(127,127,127, 0.4);
+}
+
+.archive-title,
+.search-field {
+	border-color: rgba(0,0,0, 0.05)
+}
+
+	/***** Animations *****/
